@@ -36,6 +36,8 @@ class Student(models.Model):
     s_session = models.CharField(max_length=10, choices=SEMESTER)
     s_department = models.CharField(max_length=50, choices=DEPARTMENT)
 
+['s_name', 's_roll', 's_reg', 's_sift', 's_semester', 's_session', 's_department']
+
 class Subject(models.Model):
     sub_name = models.CharField(max_length=120, default='')
     sub_code = models.IntegerField(default=0)
@@ -45,3 +47,12 @@ class Subject(models.Model):
     tf = models.IntegerField(default=0)
     pc = models.IntegerField(default=0)
     pf = models.IntegerField(default=0)
+
+class Tabulation(models.Model):
+    tc = models.IntegerField()
+    tf = models.IntegerField()
+    pc = models.IntegerField()
+    pf = models.IntegerField()
+    gp = models.CharField(max_length=10)
+    grade = models.CharField(max_length=10)
+
