@@ -15,8 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+from accounts.views import register, login_view, user_logout
 from rpiapp.views import home
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', home),
+    url(r'^register/$', register),
+    url(r'^login/$', login_view),
+    url(r'^logout/$', user_logout),
 ]
