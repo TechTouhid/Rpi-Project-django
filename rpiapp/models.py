@@ -17,6 +17,10 @@ class Student(models.Model):
         ('8', '8th'),
     )
 
+    SESSION = (
+        ([ tuple(str(str(str(int(i[0])) + '-' + str(int(i[0] + 1))) + ', ' + str(str(int(i[0])) + '-' + str(int(i[0] + 1)))).split(',')) for i in tuple(map(lambda *x: x, (tuple([i for i in range(2016, 2050)]))))])
+    )
+
     DEPARTMENT = (
         ('computer', 'Computer'),
         ('civil', 'Civil'),
@@ -33,10 +37,8 @@ class Student(models.Model):
     s_reg = models.IntegerField(default=0, blank=True)
     s_sift = models.CharField(max_length=10, choices=SHIFT)
     s_semester = models.CharField(max_length=10, choices=SEMESTER)
-    s_session = models.CharField(max_length=10, choices=SEMESTER)
+    s_session = models.CharField(max_length=10, choices=SESSION)
     s_department = models.CharField(max_length=50, choices=DEPARTMENT)
-
-['s_name', 's_roll', 's_reg', 's_sift', 's_semester', 's_session', 's_department']
 
 class Subject(models.Model):
     sub_name = models.CharField(max_length=120, default='')
