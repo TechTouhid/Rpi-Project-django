@@ -1,11 +1,14 @@
 from django import forms
 from .models import Subject, Student, Tabulation
 
-class TabulationForm(forms.ModelForm):
+
+
+
+class TabulationForm(forms.ModelForm, forms.Form):
 
     class Meta:
         model = Tabulation
-        fields = ['tc', 'tf', 'pc', 'pf']
+        fields = ['subject_code', 'tc', 'tf', 'pc', 'pf']
 
 class SubjectForm(forms.ModelForm):
     class Meta:

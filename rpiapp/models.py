@@ -18,7 +18,9 @@ class Student(models.Model):
     )
 
     SESSION = (
-        ([ tuple(str(str(str(int(i[0])) + '-' + str(int(i[0] + 1))) + ', ' + str(str(int(i[0])) + '-' + str(int(i[0] + 1)))).split(',')) for i in tuple(map(lambda *x: x, (tuple([i for i in range(2016, 2050)]))))])
+        ([tuple(str(str(str(int(i[0])) + '-' + str(int(i[0] + 1))) + ', ' + str(
+            str(int(i[0])) + '-' + str(int(i[0] + 1)))).split(',')) for i in
+          tuple(map(lambda *x: x, (tuple([i for i in range(2016, 2050)]))))])
     )
 
     DEPARTMENT = (
@@ -40,6 +42,10 @@ class Student(models.Model):
     s_session = models.CharField(max_length=10, choices=SESSION)
     s_department = models.CharField(max_length=50, choices=DEPARTMENT)
 
+    def __str__(self):
+        return self.s_name
+
+
 class Subject(models.Model):
     sub_name = models.CharField(max_length=120, default='')
     sub_code = models.IntegerField(default=0)
@@ -50,11 +56,24 @@ class Subject(models.Model):
     pc = models.IntegerField(default=0)
     pf = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.sub_name
+
 class Tabulation(models.Model):
+
+    # s_value = map(lambda *x:x, [str(i) for i in Subject.objects.all()])
+    # # s_value = [tuple(str(i.sub_name).splitlines()) for i in Subject.objects.all()]
+    # for i in s_value:
+    #     print(i)
+    #
+    # SUBJECT = (
+    #     (s_value, s_value),
+    # )
+
+    subject_code = models.CharField(max_length=120, null=True)
     tc = models.IntegerField()
     tf = models.IntegerField()
     pc = models.IntegerField()
     pf = models.IntegerField()
     gp = models.CharField(max_length=10)
-    grade = models.CharField(max_length=10)
-
+    grade = models.CharField(max_length=10, null=True)
