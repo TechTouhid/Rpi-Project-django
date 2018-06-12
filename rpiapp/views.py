@@ -4,73 +4,75 @@ from django.urls import reverse
 from django.views.generic import CreateView
 
 from .forms import TabulationForm, SubjectForm, StudentForm
+from .models import Subject
 
 
 # Create your views here.
 def tabulation(request):
     form = TabulationForm(request.POST or None)
     if form.is_valid():
-        obj = form.save(commit=False)
+        obj = form.save()
 
         def calculatu_marks():
-            TC = obj.tc
-            TF = obj.tf
-            PC = obj.pc
-            PF = obj.pf
-            temp = (TC + TF + PC + PF) * 100
-            print(temp)
-            temp = temp / 200
-            print(temp)
+            sub_mark = Subject.objects.get(sub_code=obj.subject_code)
+            sub_mark = sub_mark.full_mark
+            tc = obj.tc
+            tf = obj.tf
+            pc = obj.pc
+            pf = obj.pf
+            temp = (tc + tf + pc + pf) * 100
+            temp = temp / sub_mark
             if temp >= 80:
-                gp = 4
-                latter_grade = 'A+'
-                return print(gp, latter_grade)
+                obj.gp = 4
+                obj.grade = 'A+'
+                return obj.gp, obj.grade
 
             elif temp >= 75:
-                gp = 3.75
-                latter_grade = 'A'
-                return print(gp, latter_grade)
+                obj.gp = 3.75
+                obj.grade = 'A'
+                return obj.gp, obj.grade
 
             elif temp >= 70:
-                gp = 3.75
-                latter_grade = 'A-'
-                return print(gp, latter_grade)
+                obj.gp = 3.75
+                obj.grade = 'A-'
+                return obj.gp, obj.grade
 
             elif temp >= 65:
-                gp = 3.25
-                latter_grade = 'B+'
-                return print(gp, latter_grade)
+                obj.gp = 3.25
+                obj.grade = 'B+'
+                return obj.gp, obj.grade
 
             elif temp >= 60:
-                gp = 3.00
-                latter_grade = 'B'
-                return print(gp, latter_grade)
+                obj.gp = 3.00
+                obj.grade = 'B'
+                return obj.gp, obj.grade
 
             elif temp >= 55:
-                gp = 2.75
-                latter_grade = 'B-'
-                return print(gp, latter_grade)
+                obj.gp = 2.75
+                obj.grade = 'B-'
+                return obj.gp, obj.grade
 
             elif temp >= 50:
-                gp = 2.50
-                latter_grade = 'C+'
-                return print(gp, latter_grade)
+                obj.gp = 2.50
+                obj.grade = 'C+'
+                return obj.gp, obj.grade
 
             elif temp >= 45:
-                gp = 2.25
-                latter_grade = 'C'
-                return print(gp, latter_grade)
+                obj.gp = 2.25
+                obj.grade = 'C'
+                return obj.gp, obj.grade
 
             elif temp >= 40:
-                gp = 2.25
-                latter_grade = 'D'
-                return print(gp, latter_grade)
+                obj.gp = 2.25
+                obj.grade = 'D'
+                return obj.gp, obj.grade
             else:
-                gp = 0.00
-                latter_grade = 'F'
-                return print(gp, latter_grade)
+                obj.gp = 0.00
+                obj.grade = 'F'
+                return obj.gp, obj.grade
 
         calculatu_marks()
+        obj = form.save()
     return render(request, 'tabulation.html', {'form': form})
 
 
