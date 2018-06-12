@@ -69,7 +69,7 @@ class Tabulation(models.Model):
     # SUBJECT = (
     #     (s_value, s_value),
     # )
-
+    student_id = models.ForeignKey(Student, null=True)
     subject_code = models.CharField(max_length=120, null=True)
     tc = models.IntegerField()
     tf = models.IntegerField()

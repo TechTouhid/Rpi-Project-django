@@ -1,7 +1,7 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render
 from django.urls import reverse
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 
 from .forms import TabulationForm, SubjectForm, StudentForm
 from .models import Subject
@@ -83,6 +83,13 @@ class SubjectCreateView(SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse('subject_create_view')
 
+class SubjectListView(ListView):
+    model = Subject
+    template_name = 'subject_list_view.html'
+    def get_queryset(self, *args, **kwargs):
+        qs = super(SubjectListView, self).get_queryset(*args, **kwargs)
+        return qs
+
 
 class StudentCreateView(SuccessMessageMixin, CreateView):
     template_name = 'student_create.html'
@@ -91,7 +98,3 @@ class StudentCreateView(SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse('student_create_view')
 
-# class Tabulation(CreateView):
-#     template_name = 'tabulation.html'
-#     form_class = TabulationForm
-#     form = TabulationForm(request.POST)
