@@ -6,7 +6,7 @@ from django.views.generic import CreateView, ListView, DetailView
 from django.views.generic.edit import ModelFormMixin, UpdateView
 
 from .forms import TabulationForm, SubjectForm, StudentForm
-from .models import Subject
+from .models import Subject, Student
 
 
 class MultipleObjectMixin(object):
@@ -113,6 +113,7 @@ class SubjectListView(ListView):
 class SubjectDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin, DetailView):
     model = Subject
     form_class = SubjectForm
+    template_name = 'subject_details_view.html'
 
     def get_context_data(self, *args, **kwargs):
         context = super(SubjectDetailView, self).get_context_data(*args, **kwargs)
@@ -132,6 +133,13 @@ class SubjectDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
         return reverse('subject_details_view')
 
 
+class SubjectUpdateView(UpdateView):
+    model = Subject
+    # fields = ['title', 'description']
+    form_class = SubjectForm
+    template_name = 'subject_details_view.html'
+
+
 class StudentCreateView(SuccessMessageMixin, CreateView):
     template_name = 'student_create.html'
     form_class = StudentForm
@@ -140,8 +148,33 @@ class StudentCreateView(SuccessMessageMixin, CreateView):
         return reverse('student_create_view')
 
 
-class SubjectUpdateView(UpdateView):
-    model = Subject
-    # fields = ['title', 'description']
-    form_class = SubjectForm
-    template_name = 'subject_details_view.html'
+class StudentListView(ListView):
+    model = Student
+    template_name = 'student_list_view.html'
+
+    def get_queryset(self, *args, **kwargs):
+        qs = super(StudentListView, self).get_queryset(*args, **kwargs)
+        return qs
+
+
+class StudentDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin, DetailView):
+    model = Student
+    form_class = StudentForm
+    template_name = 'student_details_view.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(StudentDetailView, self).get_context_data(*args, **kwargs)
+        print(context)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                self.form_valid(form)
+
+    def get_success_url(self):
+        return reverse('subject_details_view')

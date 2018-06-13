@@ -44,9 +44,22 @@ class Student(models.Model):
     s_semester = models.CharField(max_length=10, choices=SEMESTER)
     s_session = models.CharField(max_length=10, choices=SESSION)
     s_department = models.CharField(max_length=50, choices=DEPARTMENT)
+    slug = models.SlugField(unique=True, null=True)
 
     def __str__(self):
         return self.s_name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            if self.s_name:
+                self.slug = slugify(self.s_name)
+        super(Student, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('student_details_view', kwargs={"slug": self.slug})
+
+    def __str__(self):  # Using this rename the model name
+        return smart_text(self.s_name)
 
 
 class Subject(models.Model):
