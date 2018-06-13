@@ -135,7 +135,6 @@ class SubjectDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
 
 class SubjectUpdateView(UpdateView):
     model = Subject
-    # fields = ['title', 'description']
     form_class = SubjectForm
     template_name = 'subject_details_view.html'
 

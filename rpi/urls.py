@@ -27,7 +27,8 @@ urlpatterns = [
     url(r'^logout/$', user_logout),
     url(r'^subject/create/$', SubjectCreateView.as_view(), name='subject_create_view'),
     url(r'^subject/list/$', SubjectListView.as_view(), name='subject_list_view'),
-    url(r'^subject/(?P<slug>[-\w]+)$', SubjectUpdateView.as_view(), name='subject_details_view'),
+    url(r'^subject/(?P<slug>[-\w]+)$', SubjectDetailView.as_view(), name='subject_details_view'),
+    url(r'^subject/(?P<slug>[-\w]+)$', SubjectUpdateView.as_view(), name='subject_update_view'),
 
     url(r'^student/create/$', StudentCreateView.as_view(), name='student_create_view'),
     url(r'^student/list/$', StudentListView.as_view(), name='student_list_view'),
