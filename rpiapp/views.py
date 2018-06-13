@@ -1,10 +1,27 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import render
+from django.http import Http404
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic.edit import ModelFormMixin, UpdateView
 
 from .forms import TabulationForm, SubjectForm, StudentForm
 from .models import Subject
+
+
+class MultipleObjectMixin(object):
+    def get_object(self, queryset=None, *args, **kwargs):
+        slug = self.kwargs.get('slug')
+        if slug:
+            try:
+                obj = self.model.objects.get(slug=slug)
+                return obj
+            except self.model.MultipleObjectsReturned:
+                obj = self.get_queryset().first()
+            except:
+                obj = None
+            return obj
+        return Http404
 
 
 # Create your views here.
@@ -83,12 +100,36 @@ class SubjectCreateView(SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse('subject_create_view')
 
+
 class SubjectListView(ListView):
     model = Subject
     template_name = 'subject_list_view.html'
+
     def get_queryset(self, *args, **kwargs):
         qs = super(SubjectListView, self).get_queryset(*args, **kwargs)
         return qs
+
+
+class SubjectDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin, DetailView):
+    model = Subject
+    form_class = SubjectForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SubjectDetailView, self).get_context_data(*args, **kwargs)
+        print(context)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                self.form_valid(form)
+
+    def get_success_url(self):
+        return reverse('subject_details_view')
 
 
 class StudentCreateView(SuccessMessageMixin, CreateView):
@@ -98,3 +139,9 @@ class StudentCreateView(SuccessMessageMixin, CreateView):
     def get_success_url(self):
         return reverse('student_create_view')
 
+
+class SubjectUpdateView(UpdateView):
+    model = Subject
+    # fields = ['title', 'description']
+    form_class = SubjectForm
+    template_name = 'subject_details_view.html'

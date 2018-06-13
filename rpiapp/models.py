@@ -1,4 +1,7 @@
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.urls import reverse
+from django.utils.encoding import smart_text
 
 
 class Student(models.Model):
@@ -55,12 +58,24 @@ class Subject(models.Model):
     tf = models.IntegerField(default=0)
     pc = models.IntegerField(default=0)
     pf = models.IntegerField(default=0)
+    slug = models.SlugField(unique=True, null=True)
 
     def __str__(self):
         return self.sub_name
 
-class Tabulation(models.Model):
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            if self.sub_name:
+                self.slug = slugify(self.sub_name)
+        super(Subject, self).save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('subject_details_view', kwargs={"slug": self.slug})
+
+    def __str__(self):  # Using this rename the model name
+        return smart_text(self.sub_name)
+
+class Tabulation(models.Model):
     # s_value = map(lambda *x:x, [str(i) for i in Subject.objects.all()])
     # # s_value = [tuple(str(i.sub_name).splitlines()) for i in Subject.objects.all()]
     # for i in s_value:
