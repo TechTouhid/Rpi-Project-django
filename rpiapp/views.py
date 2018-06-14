@@ -136,7 +136,7 @@ class SubjectDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
 class SubjectUpdateView(UpdateView):
     model = Subject
     form_class = SubjectForm
-    template_name = 'subject_details_view.html'
+    template_name = 'subject_update_view.html'
 
 
 class StudentCreateView(SuccessMessageMixin, CreateView):
