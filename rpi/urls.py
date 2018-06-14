@@ -17,7 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from accounts.views import register, login_view, user_logout
 from rpiapp.views import tabulation, SubjectCreateView, SubjectListView, SubjectDetailView, SubjectUpdateView, \
-    StudentCreateView, StudentListView, StudentDetailView
+    StudentCreateView, StudentListView, StudentDetailView, StudentUpdateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^student/create/$', StudentCreateView.as_view(), name='student_create_view'),
     url(r'^student/list/$', StudentListView.as_view(), name='student_list_view'),
     url(r'^student/(?P<slug>[-\w]+)$', StudentDetailView.as_view(), name='student_details_view'),
+    url(r'^student/(?P<slug>[-\w]+)/update/$', StudentUpdateView.as_view(), name='student_update_view'),
 
 ]

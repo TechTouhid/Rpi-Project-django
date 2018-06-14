@@ -177,3 +177,9 @@ class StudentDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
 
     def get_success_url(self):
         return reverse('subject_details_view')
+
+
+class StudentUpdateView(UpdateView):
+    model = Student
+    form_class = StudentForm
+    template_name = 'student_update_view.html'
