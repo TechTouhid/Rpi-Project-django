@@ -10,14 +10,14 @@ class Student(models.Model):
         ('2', '2nd'),
     )
     SEMESTER = (
-        ('1', '1st'),
-        ('2', '2nd'),
-        ('3', '3rd'),
-        ('4', '4th'),
-        ('5', '5th'),
-        ('6', '6th'),
-        ('7', '7th'),
-        ('8', '8th'),
+        ('1st', '1st'),
+        ('2nd', '2nd'),
+        ('3rd', '3rd'),
+        ('4th', '4th'),
+        ('5th', '5th'),
+        ('6th', '6th'),
+        ('7th', '7th'),
+        ('8th', '8th'),
     )
 
     SESSION = (
@@ -46,8 +46,8 @@ class Student(models.Model):
     s_department = models.CharField(max_length=50, choices=DEPARTMENT)
     slug = models.SlugField(unique=True, null=True)
 
-    def __str__(self):
-        return self.s_name
+    # def __str__(self):
+    #     return self.s_roll
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -59,12 +59,12 @@ class Student(models.Model):
         return reverse('student_details_view', kwargs={"slug": self.slug})
 
     def __str__(self):  # Using this rename the model name
-        return smart_text(self.s_name)
+        return smart_text(str('Name: ' + self.s_name + ' ' + 'Roll: ' + str(self.s_roll)))
 
 
 class Subject(models.Model):
     sub_name = models.CharField(max_length=120, default='')
-    sub_code = models.IntegerField(default=0)
+    sub_code = models.IntegerField(unique=True, default=0)
     sub_credit = models.IntegerField(default=0)
     full_mark = models.IntegerField(default=0)
     tc = models.IntegerField(default=0)
@@ -88,6 +88,7 @@ class Subject(models.Model):
     def __str__(self):  # Using this rename the model name
         return smart_text(self.sub_name)
 
+
 class Tabulation(models.Model):
     # s_value = map(lambda *x:x, [str(i) for i in Subject.objects.all()])
     # # s_value = [tuple(str(i.sub_name).splitlines()) for i in Subject.objects.all()]
@@ -97,7 +98,20 @@ class Tabulation(models.Model):
     # SUBJECT = (
     #     (s_value, s_value),
     # )
-    student_id = models.ForeignKey(Student, null=True)
+
+    SEMESTER = (
+        ('1st', '1st'),
+        ('2nd', '2nd'),
+        ('3rd', '3rd'),
+        ('4th', '4th'),
+        ('5th', '5th'),
+        ('6th', '6th'),
+        ('7th', '7th'),
+        ('8th', '8th'),
+    )
+
+    student_id = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
+    s_semester = models.CharField(max_length=10, null=True, choices=SEMESTER)
     subject_code = models.CharField(max_length=120, null=True)
     tc = models.IntegerField()
     tf = models.IntegerField()
@@ -105,3 +119,6 @@ class Tabulation(models.Model):
     pf = models.IntegerField()
     gp = models.CharField(max_length=10)
     grade = models.CharField(max_length=10, null=True)
+
+    def __str__(self):  # Using this rename the model name
+        return smart_text(str(self.student_id) + ' semester : ' + str(self.s_semester))

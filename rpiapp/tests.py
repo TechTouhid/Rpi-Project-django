@@ -17,16 +17,25 @@ from django.test import TestCase
 #     print(next(y))
 
 
-x = [('Test subject',), ('Test subject 2',), ('Bangla',), ('English',)]
-s = [('Test subject',), ('Test subject 2',), ('Bangla',), ('English',)]
+# x = [('Test subject',), ('Test subject 2',), ('Bangla',), ('English',)]
+s = (('Test subject',), ('Test subject 2',), ('Bangla',), ('English',))
+#
+# y = [x[i] for i in range(0,4)]
+#
+#
+# def oo():
+#     for i in range(0,4):
+#         valu = x[i]
+#         print(valu)
+#
+#
+# print(oo())
 
-y = [x[i] for i in range(0,4)]
+c = [101, 123, 100]
 
+x = tuple(s)
 
-def oo():
-    for i in range(0,4):
-        valu = x[i]
-        print(valu)
+for i in range(1, 1):
+    print(s)
 
-
-print(oo())
+print(x)
