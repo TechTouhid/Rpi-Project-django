@@ -187,11 +187,12 @@ class StudentUpdateView(UpdateView):
 
 
 def tabulations(request):
-    query = request.GET.get('q', None)
+    q_roll = request.GET.get('q_roll', None)
+    q_semester = request.GET.get('q_semester', None)
     obj = Tabulation.objects.all()
-    print(query)
-    if query is not None:
-        obj = obj.filter(s_roll__icontains=query)
+    # print(query)
+    if q_roll and  q_semester is not None:
+        obj = obj.filter(Q(s_roll__icontains=q_roll) and Q(s_semester__icontains=q_semester))
         print(obj)
     template = 'tabulations.html'
     context = {'obj': obj}

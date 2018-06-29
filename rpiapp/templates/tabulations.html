@@ -5,7 +5,8 @@
 {% block content %}
 
     <form method="GET" action="/tabulation">{% csrf_token %}
-        <input type='text' name="q" placeholder="Enter student roll"  />
+        <input type='text' name="q_roll" placeholder="Enter student roll"  />
+        <input type='text' name="q_semester" placeholder="Enter student semester"  />
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 
@@ -14,6 +15,7 @@
         <div class='row'>
             <div class='col-sm-6 col-sm-offset-3'>
                 {{ object.student_id}}
+                {{ object.s_semester}}
             </div>
         </div>
 
