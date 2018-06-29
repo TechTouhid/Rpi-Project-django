@@ -1,4 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -6,7 +7,7 @@ from django.views.generic import CreateView, ListView, DetailView
 from django.views.generic.edit import ModelFormMixin, UpdateView
 
 from .forms import TabulationForm, SubjectForm, StudentForm
-from .models import Subject, Student
+from .models import Subject, Student, Tabulation
 
 
 class MultipleObjectMixin(object):
@@ -183,3 +184,16 @@ class StudentUpdateView(UpdateView):
     model = Student
     form_class = StudentForm
     template_name = 'student_update_view.html'
+
+
+def tabulations(request):
+    query = request.GET.get('q', None)
+    obj = Tabulation.objects.all()
+    print(query)
+    if query is not None:
+        obj = obj.filter(s_roll__icontains=query)
+        print(obj)
+    template = 'tabulations.html'
+    context = {'obj': obj}
+    return render(request, template, context)
+

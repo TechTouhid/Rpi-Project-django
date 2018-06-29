@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <form method="GET" action="/tabulation">{% csrf_token %}
+        <input type='text' name="q" placeholder="Enter student roll"  />
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+
+    <form method="POST">{% csrf_token %}
+        {% for object in obj %}
+        <div class='row'>
+            <div class='col-sm-6 col-sm-offset-3'>
+                {{ object.student_id}}
+            </div>
+        </div>
+
+
+        {% endfor %}
+
+    </form>
+{% endblock %}

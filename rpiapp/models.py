@@ -111,6 +111,7 @@ class Tabulation(models.Model):
     )
 
     student_id = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
+    s_roll = models.IntegerField(default=0, blank=True)
     s_semester = models.CharField(max_length=10, null=True, choices=SEMESTER)
     subject_code = models.CharField(max_length=120, null=True)
     tc = models.IntegerField()

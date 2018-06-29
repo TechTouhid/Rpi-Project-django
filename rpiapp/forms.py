@@ -8,7 +8,7 @@ class TabulationForm(forms.ModelForm, forms.Form):
 
     class Meta:
         model = Tabulation
-        fields = ['student_id', 's_semester', 'subject_code', 'tc', 'tf', 'pc', 'pf']
+        fields = ['student_id', 's_semester', 's_roll', 'subject_code', 'tc', 'tf', 'pc', 'pf']
 
 class SubjectForm(forms.ModelForm):
     class Meta:
