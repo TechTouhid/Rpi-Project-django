@@ -37,5 +37,10 @@ urlpatterns = [
 
 
     url(r'^tabulation$', tabulations, name='tabulation'),
+    url(r'^register/$', register),
+    url(r'^login/$', login_view),
+    url(r'^logout/$', user_logout),
+
+
 
 ]
