@@ -2,13 +2,17 @@ from django import forms
 from .models import Subject, Student, Tabulation
 
 
-
-
 class TabulationForm(forms.ModelForm, forms.Form):
-
     class Meta:
         model = Tabulation
         fields = ['student_id', 's_semester', 's_roll', 'subject_code', 'tc', 'tf', 'pc', 'pf']
+
+
+class TabulationDetailsForm(forms.ModelForm, forms.Form):
+    class Meta:
+        model = Tabulation
+        exclude =['slug']
+
 
 class SubjectForm(forms.ModelForm):
     class Meta:

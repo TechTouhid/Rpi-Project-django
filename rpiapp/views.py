@@ -1,14 +1,13 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView, ListView, DetailView
 from django.views.generic.edit import ModelFormMixin, UpdateView
 
-from .forms import TabulationForm, SubjectForm, StudentForm
+from .forms import TabulationForm, SubjectForm, StudentForm, TabulationDetailsForm
 from .models import Subject, Student, Tabulation
-
 
 class MultipleObjectMixin(object):
     def get_object(self, queryset=None, *args, **kwargs):
@@ -164,7 +163,6 @@ class StudentDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
 
     def get_context_data(self, *args, **kwargs):
         context = super(StudentDetailView, self).get_context_data(*args, **kwargs)
-        print(context)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -190,11 +188,33 @@ def tabulations(request):
     q_roll = request.GET.get('q_roll', None)
     q_semester = request.GET.get('q_semester', None)
     obj = Tabulation.objects.all()
-    # print(query)
-    if q_roll and  q_semester is not None:
-        obj = obj.filter(Q(s_roll__icontains=q_roll) and Q(s_semester__icontains=q_semester))
-        print(obj)
+    if q_roll and q_semester is not None:
+        obj = obj.filter(s_roll=q_roll)
+        obj = obj.filter(s_semester__iexact=q_semester)
     template = 'tabulations.html'
     context = {'obj': obj}
     return render(request, template, context)
+
+
+class TabulationDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin, DetailView):
+    model = Tabulation
+    form_class = TabulationDetailsForm
+    template_name = 'tabulation_details_view.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(TabulationDetailView, self).get_context_data(*args, **kwargs)
+        return context
+
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            self.object = self.get_object()
+            form = self.get_form()
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                self.form_valid(form)
+
+    def get_success_url(self):
+        return reverse('tabulation_details_view')
+
 

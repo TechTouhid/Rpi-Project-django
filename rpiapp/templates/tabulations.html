@@ -14,8 +14,9 @@
         {% for object in obj %}
         <div class='row'>
             <div class='col-sm-6 col-sm-offset-3'>
-                {{ object.student_id}}
-                {{ object.s_semester}}
+                <table>
+                    <tr><td><a href="{{ object.get_absolute_url }}">{{ object.student_id}}{{ object.s_semester}}</a></td></tr>
+                </table>
             </div>
         </div>
 

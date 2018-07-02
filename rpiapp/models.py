@@ -120,6 +120,17 @@ class Tabulation(models.Model):
     pf = models.IntegerField()
     gp = models.CharField(max_length=10)
     grade = models.CharField(max_length=10, null=True)
+    slug = models.SlugField(unique=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            if self.s_roll and self.s_semester and self.subject_code:
+                self.slug = slugify(str(self.s_roll) + '-' + self.s_semester + '-' + str(self.subject_code))
+        super(Tabulation, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('tabulation_details_view', kwargs={"slug": self.slug})
+
 
     def __str__(self):  # Using this rename the model name
         return smart_text(str(self.student_id) + ' semester : ' + str(self.s_semester))
