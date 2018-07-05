@@ -1,8 +1,33 @@
 {% extends 'base.html'%}
 {% block content %}
-    <table class="table">
+
+    </br>
+    </br>
+    </br>
+    </br>
+    <table class="table" border="1">
+        <tr>
+            <td class="active">Name</td>
+            <td class="active">Roll</td>
+            <td class="active">Registration</td>
+            <td class="active">Shift</td>
+            <td class="active">Semester</td>
+            <td class="active">Session</td>
+        </tr>
         {% for object in object_list %}
-            <tr><td><a href="{{ object.get_absolute_url }}">{{ object }}</a></td></tr>
+
+        <tr>
+            <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.s_name }}</a></td>
+            <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.s_roll }}</a></td>
+            <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.s_reg }}</a></td>
+            <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.s_shift }}</a></td>
+            <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.s_semester }}</a></td>
+            <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.s_session }}</a></td>
+        </tr>
         {% endfor %}
     </table>
 {% endblock  %}
+
+
+
+

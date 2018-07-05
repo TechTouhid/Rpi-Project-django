@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from accounts.views import register, login_view, user_logout
-from rpiapp.views import tabulation, SubjectCreateView, SubjectListView, SubjectDetailView, SubjectUpdateView, \
+from rpiapp.views import home, tabulation, SubjectCreateView, SubjectListView, SubjectDetailView, SubjectUpdateView, \
     StudentCreateView, StudentListView, StudentDetailView, StudentUpdateView, tabulations, \
     TabulationDetailView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', tabulation),
+    url(r'^$', home),
+    url(r'^tabulation/create/$', tabulation),
     url(r'^register/$', register),
     url(r'^login/$', login_view),
     url(r'^logout/$', user_logout),

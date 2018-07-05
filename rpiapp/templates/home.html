@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <div class="row" style="padding-top: 100px">
+        <div class="col-md-8" style="padding-left: 100px">
+                <a class="btn btn-primary btn-lg btn-block" href="/student/create/" role="button">Add Student</a>
+                <a class="btn btn-primary btn-lg btn-block" href="/student/list/" role="button">Student List</a>
+                <a class="btn btn-primary btn-lg btn-block" href="/subject/create/" role="button">Add Subject</a>
+                <a class="btn btn-primary btn-lg btn-block" href="/subject/list/" role="button">Subject List</a>
+                <a class="btn btn-primary btn-lg btn-block" href="/tabulation/create/" role="button">Create Tabulation</a>
+                <a class="btn btn-primary btn-lg btn-block" href="/tabulation" role="button">Tabulation View</a>
+        </div>
+
+    </div>
+{##}
+{#    <table class="table" border="1">#}
+{#    <tr>#}
+{#        <td class="active">aaaaa</td>#}
+{#        <td class="success">..sfsfs.</td>#}
+{#        <td class="warning">..sfs.</td>#}
+{#        <td class="danger">..sfs.</td>#}
+{#        <td class="info">...sfs</td>#}
+{#    </tr>#}
+{##}
+{#    </table>#}
+{% endblock %}

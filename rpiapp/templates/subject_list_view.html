@@ -1,8 +1,37 @@
 {% extends 'base.html'%}
 {% block content %}
-    <table class="table">
+
+    </br>
+    </br>
+    </br>
+    </br>
+    <table class="table" border="1">
+        <tr>
+            <td class="active">Name</td>
+            <td class="active">Code</td>
+            <td class="active">Credit</td>
+            <td class="active">Full Mark</td>
+            <td class="active">TC</td>
+            <td class="active">TF</td>
+            <td class="active">PC</td>
+            <td class="active">PF</td>
+        </tr>
         {% for object in object_list %}
-            <tr><td><a href="{{ object.get_absolute_url }}">{{ object }}</a></td></tr>
+
+            <tr>
+                <td class="active"><a href="{{ object.get_absolute_url }}">{{ object.sub_name }}</a></td>
+                <td class="active">{{ object.sub_code }}</td>
+                <td class="active">{{ object.sub_credit }}</td>
+                <td class="active">{{ object.full_mark }}</td>
+                <td class="active">{{ object.tc }}</td>
+                <td class="active">{{ object.tf }}</td>
+                <td class="active">{{ object.pc }}</td>
+                <td class="active">{{ object.pf }}</td>
+            </tr>
         {% endfor %}
     </table>
 {% endblock  %}
+
+
+
+

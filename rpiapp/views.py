@@ -24,6 +24,8 @@ class MultipleObjectMixin(object):
             return obj
         return Http404
 
+def home(request):
+    return render(request, 'home.html', {})
 
 # Create your views here.
 def tabulation(request):

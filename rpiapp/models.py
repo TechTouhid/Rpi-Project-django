@@ -40,7 +40,7 @@ class Student(models.Model):
     s_name = models.CharField(max_length=250, blank=True, verbose_name='Name')
     s_roll = models.IntegerField(default=0, blank=True, verbose_name='Roll')
     s_reg = models.IntegerField(default=0, blank=True, verbose_name='Registration')
-    s_sift = models.CharField(max_length=10, choices=SHIFT, verbose_name='Shift')
+    s_shift = models.CharField(max_length=10, choices=SHIFT, verbose_name='Shift')
     s_semester = models.CharField(max_length=10, choices=SEMESTER, verbose_name='Semester')
     s_session = models.CharField(max_length=10, choices=SESSION, verbose_name='Session')
     s_department = models.CharField(max_length=50, choices=DEPARTMENT, verbose_name='Department')
