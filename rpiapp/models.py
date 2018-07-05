@@ -37,13 +37,13 @@ class Student(models.Model):
         ('mechatronics', 'Mechatronics'),
     )
 
-    s_name = models.CharField(max_length=250, blank=True)
-    s_roll = models.IntegerField(default=0, blank=True)
-    s_reg = models.IntegerField(default=0, blank=True)
-    s_sift = models.CharField(max_length=10, choices=SHIFT)
-    s_semester = models.CharField(max_length=10, choices=SEMESTER)
-    s_session = models.CharField(max_length=10, choices=SESSION)
-    s_department = models.CharField(max_length=50, choices=DEPARTMENT)
+    s_name = models.CharField(max_length=250, blank=True, verbose_name='Name')
+    s_roll = models.IntegerField(default=0, blank=True, verbose_name='Roll')
+    s_reg = models.IntegerField(default=0, blank=True, verbose_name='Registration')
+    s_sift = models.CharField(max_length=10, choices=SHIFT, verbose_name='Shift')
+    s_semester = models.CharField(max_length=10, choices=SEMESTER, verbose_name='Semester')
+    s_session = models.CharField(max_length=10, choices=SESSION, verbose_name='Session')
+    s_department = models.CharField(max_length=50, choices=DEPARTMENT, verbose_name='Department')
     slug = models.SlugField(unique=True, null=True)
 
     # def __str__(self):
@@ -63,14 +63,14 @@ class Student(models.Model):
 
 
 class Subject(models.Model):
-    sub_name = models.CharField(max_length=120, default='')
-    sub_code = models.IntegerField(unique=True, default=0)
-    sub_credit = models.IntegerField(default=0)
-    full_mark = models.IntegerField(default=0)
-    tc = models.IntegerField(default=0)
-    tf = models.IntegerField(default=0)
-    pc = models.IntegerField(default=0)
-    pf = models.IntegerField(default=0)
+    sub_name = models.CharField(max_length=120, default='', verbose_name='Name')
+    sub_code = models.IntegerField(unique=True, default=0, verbose_name='Code')
+    sub_credit = models.IntegerField(default=0, verbose_name='Credit')
+    full_mark = models.IntegerField(default=0, verbose_name='Full Mark')
+    tc = models.IntegerField(default=0, verbose_name='TC')
+    tf = models.IntegerField(default=0, verbose_name='TF')
+    pc = models.IntegerField(default=0, verbose_name='PC')
+    pf = models.IntegerField(default=0, verbose_name='PF')
     slug = models.SlugField(unique=True, null=True)
 
     def __str__(self):
@@ -110,15 +110,15 @@ class Tabulation(models.Model):
         ('8th', '8th'),
     )
 
-    student_id = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
-    s_roll = models.IntegerField(default=0, blank=True)
-    s_semester = models.CharField(max_length=10, null=True, choices=SEMESTER)
-    subject_code = models.CharField(max_length=120, null=True)
-    tc = models.IntegerField()
-    tf = models.IntegerField()
-    pc = models.IntegerField()
-    pf = models.IntegerField()
-    gp = models.CharField(max_length=10)
+    student_id = models.ForeignKey(Student, null=True, on_delete=models.CASCADE, verbose_name='Student Id')
+    s_roll = models.IntegerField(default=0, blank=True, verbose_name='Student Roll')
+    s_semester = models.CharField(max_length=10, null=True, choices=SEMESTER, verbose_name='Student Semester')
+    subject_code = models.CharField(max_length=120, null=True, verbose_name='Subject Code')
+    tc = models.IntegerField(default=0, verbose_name='TC')
+    tf = models.IntegerField(default=0, verbose_name='TF')
+    pc = models.IntegerField(default=0, verbose_name='PC')
+    pf = models.IntegerField(default=0, verbose_name='PF')
+    gp = models.CharField(max_length=10, verbose_name='GP')
     grade = models.CharField(max_length=10, null=True)
     slug = models.SlugField(unique=True, null=True)
 

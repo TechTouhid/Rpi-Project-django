@@ -3,25 +3,271 @@
 
 
 {% block content %}
-
+    </br>
+    </br>
+    </br>
+    </br>
     <form method="GET" action="/tabulation">{% csrf_token %}
-        <input type='text' name="q_roll" placeholder="Enter student roll"  />
-        <input type='text' name="q_semester" placeholder="Enter student semester"  />
+        <input type='text' name="q_roll" placeholder="Enter student roll"/>
+        <input type='text' name="q_semester" placeholder="Enter student semester"/>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 
-    <form method="POST">{% csrf_token %}
-        {% for object in obj %}
-        <div class='row'>
-            <div class='col-sm-6 col-sm-offset-3'>
-                <table>
-                    <tr><td><a href="{{ object.get_absolute_url }}">{{ object.student_id}}{{ object.s_semester}}</a></td></tr>
-                </table>
-            </div>
-        </div>
+    {#    <form method="POST">{% csrf_token %}#}
+    {#        {% for object in obj %}#}
+    {#        <div class='row'>#}
+    {#            <div class='col-sm-6 col-sm-offset-3'>#}
+    {#                <table>#}
+    {#                    <tr><td><a href="{{ object.get_absolute_url }}">{{ object.student_id}}{{ object.s_semester}} {% if gpa %} {{ gpa }} {% endif %}</a></td></tr>#}
+    {#                </table>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        {% endfor %}#}
+    {#    </form>#}
+    {##}
+    {#    </br>#}
+    {#    </br>#}
+    {#        <div class="Container">#}
+    {#            <form>#}
+    {#                <table border="1">#}
+    {#                        <tr>#}
+    {#                            <td rowspan="4" colspan="2" align="center">subject1 info</td>#}
+    {#                            <td colspan="3" align="center">{{ subject1.sub_code }}</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td colspan="3" align="center">{{ subject1.sub_name }}</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td colspan="2" align="center">full mark</td>#}
+    {#                            <td align="center">credit</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td colspan="2" align="center">{{ subject1.full_mark }}</td>#}
+    {#                            <td align="center">{{ subject1.sub_credit }}</td>#}
+    {#                        </tr>#}
+    {##}
+    {##}
+    {#                        <tr>#}
+    {#                            <td align="center">{{ student.s_roll }}</td>#}
+    {#                            <td rowspan="4" align="center">{{ student.s_name }}</td>#}
+    {#                            <td align="center">TC</td>#}
+    {#                            <td align="center">TF</td>#}
+    {#                            <td align="center">total</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td align="center">{{ student.s_reg }}</td>#}
+    {#                            <td align="center">{{ subject1.tc }}</td>#}
+    {#                            <td align="center">{{ subject1.tf }}</td>#}
+    {##}
+    {#                            <td rowspan="2" align="center">{{ obj.gp }}</td>#}
+    {##}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td rowspan="2" align="center">{{ student.s_session }}</td>#}
+    {#                            <td align="center">PC</td>#}
+    {#                            <td align="center">PF</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <!-- <td>subject1 info</td> -->#}
+    {#                            <td align="center">{{ subject1.pc }}</td>#}
+    {#                            <td align="center">{{ subject1.pf }}</td>#}
+    {##}
+    {#                            <td align="center">{% for obj in obj %}{{ obj.grade }}{% endfor %}</td>#}
+    {#                        </tr>#}
+    {#                    </table>#}
+    {##}
+    {##}
+    {##}
+    {#                <table border="1">#}
+    {#                        <tr>#}
+    {#                            <td rowspan="4" colspan="2" align="center">subject2 info</td>#}
+    {#                            <td colspan="3" align="center">{{ subject2.sub_code }}</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td colspan="3" align="center">{{ subject2.sub_name }}</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td colspan="2" align="center">full mark</td>#}
+    {#                            <td align="center">credit</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td colspan="2" align="center">{{ subject2.full_mark }}</td>#}
+    {#                            <td align="center">{{ subject2.sub_credit }}</td>#}
+    {#                        </tr>#}
+    {##}
+    {##}
+    {#                        <tr>#}
+    {#                            <td align="center">{{ student.s_roll }}</td>#}
+    {#                            <td rowspan="4" align="center">{{ student.s_name }}</td>#}
+    {#                            <td align="center">TC</td>#}
+    {#                            <td align="center">TF</td>#}
+    {#                            <td align="center">total</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td align="center">{{ student.s_reg }}</td>#}
+    {#                            <td align="center">{{ subject2.tc }}</td>#}
+    {#                            <td align="center">{{ subject2.tf }}</td>#}
+    {#                            <td rowspan="2" align="center">{{ obj.gp }}</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <td rowspan="2" align="center">{{ student.s_session }}</td>#}
+    {#                            <td align="center">PC</td>#}
+    {#                            <td align="center">PF</td>#}
+    {#                        </tr>#}
+    {#                        <tr>#}
+    {#                            <!-- <td>subject2 info</td> -->#}
+    {#                            <td align="center">{{ subject2.pc }}</td>#}
+    {#                            <td align="center">{{ subject2.pf }}</td>#}
+    {#                            <td align="center">{% for obj in obj %}{{ obj.grade }}{% endfor %}</td>#}
+    {#                        </tr>#}
+    {#                    </table>#}
+    {##}
+    {#            </form>#}
+    {#        </div>#}
 
 
-        {% endfor %}
 
+    {#    <form>#}
+    {#        <table border="1">#}
+    {#            <tr><td>Student name</td><td>Roll</td><td>Reg</td><td>Session</td><td>Subject name</td><td>Subject code</td><td>Full Mark</td><td>TC</td><td>TF</td><td>PC</td><td>PF</td><td>GP</td><td>Latter Grade</td></tr>#}
+    {##}
+    {#        </table>#}
+    {#        <table border="1">#}
+    {#            {% for obj in obj %}#}
+    {##}
+    {#                    <tr>#}
+    {#                        <td>{{ student.s_name }}</td>#}
+    {#                        <td>{{ student.s_roll }}</td>#}
+    {#                        <td>{{ student.s_reg }}</td>#}
+    {#                        <td>{{ student.s_session }}</td>#}
+    {#                        {% for sub in subject %}#}
+    {#                        <td>{{ sub.sub_name }}</td>#}
+    {#                        <td>{{ sub.sub_code }}</td>#}
+    {#                        <td>{{ sub.sub_credit }}</td>#}
+    {#                        <td>{{ sub.full_mark }}</td>#}
+    {#                        <td>{{ sub.tc }}</td>#}
+    {#                        <td>{{ sub.tf }}</td>#}
+    {#                        <td>{{ sub.pc }}</td>#}
+    {#                        <td>{{ sub.pf }}</td>#}
+    {#                        {% endfor %}#}
+    {#                        <td>{{ obj.gp }}</td>#}
+    {#                        <td>{{ obj.grade }}</td>#}
+    {#                    </tr>#}
+    {##}
+    {#                {{ obj.subject_code }}#}
+    {##}
+    {#            {% endfor %}#}
+    {#        </table>#}
+    {#    </form>#}
+
+
+
+
+
+
+
+    <form>
+        <table border="1">
+            <tr>
+                <td>Student name</td>
+                <td>Roll number</td>
+                <td>Regestation</td>
+                <td>Session</td>
+                <td>Subject name</td>
+                <td>Subject code</td>
+                <td>Full Mark</td>
+                <td>TC</td>
+                <td>TF</td>
+                <td>PC</td>
+                <td>PF</td>
+                <td>GP</td>
+                <td>Latter Grade</td>
+            </tr>
+
+        </table>
+        <table border="1">
+
+            <tr>
+                <td>{{ student.s_name }}</td>
+                <td>{{ student.s_roll }}</td>
+                <td>{{ student.s_reg }}</td>
+                <td>{{ student.s_session }}</td>
+
+                <td>{{ subject1.sub_name }}</td>
+                <td>{{ subject1.sub_code }}</td>
+                <td>{{ subject1.sub_credit }}</td>
+                <td>{{ subject1.full_mark }}</td>
+                <td>{{ subject1.tc }}</td>
+                <td>{{ subject1.tf }}</td>
+                <td>{{ subject1.pc }}</td>
+                <td>{{ subject1.pf }}</td>
+                {% for obj in obj %}
+                    <td>{{ obj.gp }}</td>
+                    <td>{{ obj.grade }}</td>
+                {% endfor %}
+            </tr>
+        </table>
+
+        </table>
+        <table border="1">
+
+
+            <tr>
+                <td>{{ student.s_name }}</td>
+                <td>{{ student.s_roll }}</td>
+                <td>{{ student.s_reg }}</td>
+                <td>{{ student.s_session }}</td>
+
+                <td>{{ subject2.sub_name }}</td>
+                <td>{{ subject2.sub_code }}</td>
+                <td>{{ subject2.sub_credit }}</td>
+                <td>{{ subject2.full_mark }}</td>
+                <td>{{ subject2.tc }}</td>
+                <td>{{ subject2.tf }}</td>
+                <td>{{ subject2.pc }}</td>
+                <td>{{ subject2.pf }}</td>
+                {% for obj in obj %}
+                    <td>{{ obj.gp }}</td>
+                    <td>{{ obj.grade }}</td>
+
+                {% endfor %}
+
+            </tr>
+        </table>
+
+
+        </table>
+        <table border="1">
+
+
+            <tr>
+                <td>{{ student.s_name }}</td>
+                <td>{{ student.s_roll }}</td>
+                <td>{{ student.s_reg }}</td>
+                <td>{{ student.s_session }}</td>
+
+                <td>{{ subject3.sub_name }}</td>
+                <td>{{ subject3.sub_code }}</td>
+                <td>{{ subject3.sub_credit }}</td>
+                <td>{{ subject3.full_mark }}</td>
+                <td>{{ subject3.tc }}</td>
+                <td>{{ subject3.tf }}</td>
+                <td>{{ subject3.pc }}</td>
+                <td>{{ subject3.pf }}</td>
+                {% for obj in obj %}
+                    <td>{{ obj.gp }}</td>
+                    <td>{{ obj.grade }}</td>
+
+                {% endfor %}
+
+            </tr>
+
+        </table>
+        <td>{{ gpa }}</td>
     </form>
+
+
+
+
+
 {% endblock %}
