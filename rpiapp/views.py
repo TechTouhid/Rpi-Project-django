@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.http import Http404, HttpResponseRedirect
@@ -120,6 +121,7 @@ class SubjectDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
     model = Subject
     form_class = SubjectForm
     template_name = 'subject_details_view.html'
+    success_message = "Subject has been updated."
 
     def get_context_data(self, *args, **kwargs):
         context = super(SubjectDetailView, self).get_context_data(*args, **kwargs)
@@ -166,6 +168,7 @@ class StudentDetailView(SuccessMessageMixin, ModelFormMixin, MultipleObjectMixin
     model = Student
     form_class = StudentForm
     template_name = 'student_details_view.html'
+    success_message = "Student has been updated."
 
     def get_context_data(self, *args, **kwargs):
         context = super(StudentDetailView, self).get_context_data(*args, **kwargs)
